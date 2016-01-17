@@ -1,0 +1,40 @@
+{
+  "name": "hexi-cache",
+  "version": "0.0.0",
+  "description": "Cache for hexi using catbox",
+  "main": "index.js",
+  "dependencies": {
+    "catbox": "^7.1.0",
+    "catbox-memory": "^2.0.1",
+    "hoek": "^3.0.4"
+  },
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "coveralls": "^2.11.6",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.3.4"
+  },
+  "scripts": {
+    "test": "mocha test/{**/,/}*.js",
+    "coverage": "istanbul cover _mocha test/{**/,/}*.js -- -R spec",
+    "coveralls": "istanbul cover _mocha test/{**/,/}*.js --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zkochan/hexi-cache.git"
+  },
+  "keywords": [
+    "hexi",
+    "cache",
+    "catbox"
+  ],
+  "author": "Zoltan Kochan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zkochan/hexi-cache/issues"
+  },
+  "homepage": "https://github.com/zkochan/hexi-cache#readme"
+}
