@@ -1,6 +1,6 @@
 'use strict'
 const expect = require('chai').expect
-const hexi = require('../../hexi')
+const hexi = require('hexi')
 const hexiCache = require('../')
 
 describe('cache()', function() {
