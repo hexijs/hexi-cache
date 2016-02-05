@@ -25,17 +25,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zkochan/hexi-cache.git"
+    "url": "git+https://github.com/hexijs/hexi-cache.git"
   },
   "keywords": [
     "hexi",
     "cache",
     "catbox"
   ],
-  "author": "Zoltan Kochan",
+  "author": {
+    "name": "Zoltan Kochan",
+    "email": "zoltan.kochan@gmail.com",
+    "url": "http://kochan.io"
+  },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zkochan/hexi-cache/issues"
+    "url": "https://github.com/hexijs/hexi-cache/issues"
   },
-  "homepage": "https://github.com/zkochan/hexi-cache#readme"
+  "homepage": "https://github.com/hexijs/hexi-cache#readme"
 }
