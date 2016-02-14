@@ -1,16 +1,17 @@
 'use strict'
 const expect = require('chai').expect
+const express = require('express')
 const hexi = require('hexi')
-const hexiCache = require('../')
+const hexiCache = require('..')
 
 describe('cache()', function() {
   let server
 
-  beforeEach(function(done) {
-    server = new hexi.Server()
-    server.register([
+  beforeEach(function() {
+    server = hexi(express())
+    return server.register([
       hexiCache,
-    ], done)
+    ])
   })
 
   it('provisions a server cache', function(done) {

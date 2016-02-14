@@ -6,7 +6,7 @@ const catboxMemory = require('catbox-memory')
 module.exports = function(server, opts, next) {
   server.root._caches = {}
 
-  server.decorate('server', 'cacheClient', (cacheName, adapter, cb) => {
+  server.decorate('cacheClient', (cacheName, adapter, cb) => {
     if (server.root._caches[cacheName])
       throw new Error(cacheName + ' cache client already registered')
 
@@ -18,7 +18,7 @@ module.exports = function(server, opts, next) {
     client.start(cb)
   })
 
-  server.decorate('server', 'cache', (options, _segment) => {
+  server.decorate('cache', (options, _segment) => {
     const segment = options.segment || _segment ||
       (server.realm.plugin ? '!' + server.realm.plugin : '')
 

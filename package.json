@@ -14,7 +14,8 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "coveralls": "^2.11.6",
-    "hexi": "^0.1.1",
+    "express": "^4.13.4",
+    "hexi": "^0.7.2",
     "istanbul": "^0.4.2",
     "mocha": "^2.3.4"
   },
