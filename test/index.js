@@ -1,20 +1,22 @@
 'use strict'
+const describe = require('mocha').describe
+const it = require('mocha').it
+const beforeEach = require('mocha').beforeEach
 const expect = require('chai').expect
-const express = require('express')
 const hexi = require('hexi')
 const hexiCache = require('..')
 
-describe('cache()', function() {
+describe('cache()', function () {
   let server
 
-  beforeEach(function() {
-    server = hexi(express())
+  beforeEach(function () {
+    server = hexi()
     return server.register([
       hexiCache,
     ])
   })
 
-  it('provisions a server cache', function(done) {
+  it('provisions a server cache', function (done) {
     const cache = server.cache({ segment: 'test', expiresIn: 1000 })
 
     cache.set('a', 'going in', 0, err => {
@@ -27,13 +29,15 @@ describe('cache()', function() {
     })
   })
 
-  it.skip('throws when missing segment', function() {
+  it.skip('throws when missing segment', function () {
     expect(() => server.cache({ expiresIn: 1000 }))
       .to.throw('Missing cache segment name')
   })
 
-  it.skip('provisions a server cache with custom partition', function(done) {
-    const server = new hexi.Server({ cache: { engine: CatboxMemory, partition: 'hexi-test-other' } })
+  it.skip('provisions a server cache with custom partition', function (done) {
+    const server = new hexi.Server({
+      cache: { engine: CatboxMemory, partition: 'hexi-test-other' },
+    })
     server.connection()
     const cache = server.cache({ segment: 'test', expiresIn: 1000 })
     server.initialize(err => {
@@ -53,17 +57,17 @@ describe('cache()', function() {
     })
   })
 
-  it('throws when allocating an invalid cache segment', function() {
+  it('throws when allocating an invalid cache segment', function () {
     expect(() => {
       server.cache({ segment: 'a', expiresAt: '12:00', expiresIn: 1000 })
     }).throws()
   })
 
-  it('allows allocating a cache segment with empty options', function() {
+  it('allows allocating a cache segment with empty options', function () {
     expect(() => server.cache({ segment: 'a' })).to.not.throw()
   })
 
-  it.skip('allows reusing the same cache segment (server)', function(done) {
+  it.skip('allows reusing the same cache segment (server)', function (done) {
     const server = new hexi.Server({ cache: { engine: CatboxMemory, shared: true } })
     server.connection()
     expect(() => {
@@ -73,23 +77,23 @@ describe('cache()', function() {
     done()
   })
 
-  it('allows reusing the same cache segment (cache)', function() {
+  it('allows reusing the same cache segment (cache)', function () {
     expect(() => {
       server.cache({ segment: 'a', expiresIn: 1000 })
       server.cache({ segment: 'a', expiresIn: 1000, shared: true })
     }).to.not.throw()
   })
 
-  it.skip('uses plugin cache interface', function(done) {
-    function test(srv, options, next) {
+  it.skip('uses plugin cache interface', function (done) {
+    function test (srv, options, next) {
       const cache = srv.cache({ expiresIn: 10 })
       srv.expose({
-        get: function(key, callback) {
+        get: function (key, callback) {
           cache.get(key, (err, value, cached, report) => {
             callback(err, value);
           })
         },
-        set: function(key, value, callback) {
+        set: function (key, value, callback) {
           cache.set(key, value, 0, callback);
         },
       })

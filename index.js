@@ -3,7 +3,7 @@ const catbox = require('catbox')
 const hoek = require('hoek')
 const catboxMemory = require('catbox-memory')
 
-module.exports = function(server, opts, next) {
+module.exports = (server, opts, next) => {
   server.root._caches = {}
 
   server.decorate('cacheClient', (cacheName, adapter, cb) => {
