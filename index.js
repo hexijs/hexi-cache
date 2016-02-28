@@ -4,14 +4,14 @@ const hoek = require('hoek')
 const catboxMemory = require('catbox-memory')
 
 module.exports = (server, opts, next) => {
-  server.root._caches = {}
+  const caches = {}
 
   server.decorate('cacheClient', (cacheName, adapter, cb) => {
-    if (server.root._caches[cacheName])
+    if (caches[cacheName])
       throw new Error(cacheName + ' cache client already registered')
 
     let client = new catbox.Client(adapter)
-    server.root._caches[cacheName] = {
+    caches[cacheName] = {
       client,
       segments: {},
     }
@@ -24,7 +24,7 @@ module.exports = (server, opts, next) => {
 
     hoek.assert(segment, 'Missing cache segment name')
     const cacheName = options.cache || '_default'
-    const cache = server.root._caches[cacheName]
+    const cache = caches[cacheName]
     hoek.assert(cache, 'Unknown cache', cacheName)
     hoek.assert(!cache.segments[segment] || cache.shared || options.shared,
       'Cannot provision the same cache segment more than once')
